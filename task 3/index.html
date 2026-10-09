@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>WebAR: маска на лицо (MindAR Face)</title>
+  <script src="js/aframe.min.js"></script>
+  <script src="js/mindar-face-aframe.prod.js"></script>
+  <style>
+    html { background: #0e1116; }
+    body { margin: 0; height: 100%; overflow: hidden; }
+    .ar-container { position: absolute; inset: 0; overflow: hidden; }
+  </style>
+</head>
+<body>
+  <div class="ar-container">
+  <a-scene embedded
+    mindar-face="filterMinCF: 0.0001; filterBeta: 1; uiScanning: yes; uiLoading: yes"
+    color-space="sRGB"
+    renderer="colorManagement: true, physicallyCorrectLights: true"
+    vr-mode-ui="enabled: false"
+    device-orientation-permission-ui="enabled: false"
+  >
+    <a-assets>
+      <a-asset-item id="glassesModel" src="models/glasses/scene.gltf"></a-asset-item>
+      <a-asset-item id="hatModel" src="models/hat/scene.gltf"></a-asset-item>
+    </a-assets>
+
+    <a-camera active="false" position="0 0 0" look-controls="enabled: false"></a-camera>
+
+    <!-- освещение сцены, как в Задании 2 -->
+    <a-entity light="type: ambient; intensity: 0.9; color: #ffffff"></a-entity>
+    <a-entity light="type: directional; intensity: 0.7; color: #ffffff" position="1 2 1"></a-entity>
+
+    <!-- очки: точка 168 – переносица между глазами -->
+    <a-entity mindar-face-target="anchorIndex: 168">
+      <a-gltf-model src="#glassesModel"
+        position="0 0.02 -0.1" rotation="0 0 0" scale="0.0068 0.0068 0.0068"></a-gltf-model>
+    </a-entity>
+
+    <!-- шляпа: точка 10 – верх лба -->
+    <a-entity mindar-face-target="anchorIndex: 10">
+      <a-gltf-model src="#hatModel"
+        position="0 1.05 -0.5" rotation="0 0 0" scale="0.35 0.35 0.35"></a-gltf-model>
+    </a-entity>
+  </a-scene>
+  </div>
+</body>
+</html>
