@@ -1,0 +1,64 @@
+:root {
+  --bg: #0e1116;
+  --panel: rgba(20, 24, 31, 0.82);
+  --accent: #5b9dff;
+  --text: #eef1f6;
+  --muted: #9aa4b2;
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; height: 100%; overflow: hidden; background: var(--bg); color: var(--text);
+  font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+}
+#scene canvas { display: block; }
+
+/* слой интерфейса не перехватывает касания – их получает только сама панель */
+#ui { position: fixed; inset: 0; pointer-events: none; z-index: 10; }
+.panel {
+  pointer-events: auto;
+  position: absolute; left: 12px; right: 12px; bottom: 12px;
+  max-width: 420px; margin: 0 auto;
+  padding: 14px 14px 12px;
+  background: var(--panel); backdrop-filter: blur(8px);
+  border-radius: 16px; font-size: 13px;
+}
+.row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
+.row label, .row .label { color: var(--muted); white-space: nowrap; }
+select, button, input[type=range] { font: inherit; }
+select {
+  flex: 1; min-width: 0; padding: 6px 8px; border-radius: 8px;
+  background: #222834; color: var(--text); border: 1px solid #343b49;
+}
+input[type=range] { flex: 1; accent-color: var(--accent); }
+.buttons { display: flex; gap: 8px; align-items: center; }
+.buttons button {
+  padding: 6px 12px; border-radius: 8px; border: 1px solid #343b49;
+  background: #222834; color: var(--text); cursor: pointer;
+}
+.toggle { display: flex; align-items: center; gap: 4px; color: var(--text) !important; }
+.swatches { display: flex; gap: 8px; }
+.swatch {
+  width: 26px; height: 26px; border-radius: 50%; padding: 0; cursor: pointer;
+  border: 2px solid transparent; box-shadow: 0 0 0 1px #343b49;
+}
+.swatch.active { border-color: #fff; }
+.ar-btn {
+  width: 100%; margin-top: 4px; padding: 11px; border: none; border-radius: 999px;
+  background: var(--accent); color: #0e1116; font-weight: 600; cursor: pointer;
+}
+.ar-btn:disabled { background: #3a4150; color: var(--muted); cursor: default; }
+#ui.in-ar .ar-btn { display: none; }
+#ui.no-dom-overlay { z-index: 1000; }
+
+/* свёрнутая панель оставляет больше экрана для AR */
+.collapse {
+  position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+  width: 44px; height: 18px; border: none; border-radius: 9px;
+  background: var(--panel); cursor: pointer;
+}
+.collapse::after {
+  content: ''; position: absolute; left: 50%; top: 7px; width: 18px; height: 3px;
+  margin-left: -9px; border-radius: 2px; background: var(--muted);
+}
+#ui.collapsed .row, #ui.collapsed .ar-btn { display: none; }
+#ui.collapsed .panel { padding: 10px; }

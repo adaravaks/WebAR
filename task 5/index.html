@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>WebAR: управление объектом, HDRI, PBR (Three.js)</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "./js/three.module.min.js",
+        "three/addons/": "./js/addons/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div id="scene"></div>
+
+  <!-- корень dom-overlay: в AR-режиме этот слой показывается поверх камеры -->
+  <div id="ui">
+    <div class="panel">
+      <button id="collapse" class="collapse" title="Свернуть / развернуть"></button>
+      <div class="row">
+        <label for="model-select">Модель</label>
+        <select id="model-select"></select>
+      </div>
+      <div class="row">
+        <span class="label">Цвет</span>
+        <div id="swatches" class="swatches"></div>
+      </div>
+      <div class="row">
+        <span class="label">Поворот</span>
+        <div class="buttons">
+          <button id="rot-left" title="Повернуть влево">⟲ 15°</button>
+          <button id="rot-right" title="Повернуть вправо">⟳ 15°</button>
+          <label class="toggle"><input id="auto-rotate" type="checkbox" /> авто</label>
+        </div>
+      </div>
+      <div class="row">
+        <label for="roughness">Шероховатость</label>
+        <input id="roughness" type="range" min="0" max="1" step="0.01" value="0.3" />
+      </div>
+      <div class="row">
+        <label for="metalness">Металличность</label>
+        <input id="metalness" type="range" min="0" max="1" step="0.01" value="1" />
+      </div>
+      <div class="row">
+        <label for="hdri-select">Освещение</label>
+        <select id="hdri-select"></select>
+      </div>
+      <button id="ar-btn" class="ar-btn" disabled>Проверка поддержки AR…</button>
+    </div>
+  </div>
+
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>
